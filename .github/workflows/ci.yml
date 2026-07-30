@@ -8,12 +8,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-
+   
+    - name: Build image
+      id: build-image
+      uses: redhat-actions/buildah-build@v2
+      with:
+        image: coursestats-mock
+        tags: latest ${{ github.sha }}
+        containerfiles: |
+          ./Dockerfile
+        build-args: |
+          GIT_SHA=${{ github.sha }}
+          IMAGE_SHA=${{ github.sha }}
+  
     - name: Publish to Registry
       uses: redhat-actions/push-to-registry@v3
       with:
         image: coursestats-mock
-        tags: latest
+        tags: latest ${{ github.sha }}
         registry: registry.version.helsinki.fi/toska/openshift/kontit/
         username: kontit
         password: ${{ secrets.VERSION_PUSH_SECRET }}
