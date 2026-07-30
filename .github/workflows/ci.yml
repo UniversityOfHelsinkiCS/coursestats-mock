@@ -12,7 +12,7 @@ jobs:
     - name: Publish to Registry
       uses: redhat-actions/push-to-registry@v3
       with:
-        name: registry.version.helsinki.fi/toska/openshift/kontit/coursestats-mock
+        image: registry.version.helsinki.fi/toska/openshift/kontit/coursestats-mock
         tags: latest
         registry: registry.version.helsinki.fi/toska/openshift/kontit/
         username: kontit
